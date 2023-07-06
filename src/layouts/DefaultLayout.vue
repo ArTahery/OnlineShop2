@@ -23,10 +23,10 @@
         <v-spacer></v-spacer>
 
         <v-btn to="/about" icon>
-          <v-icon>mdi-about</v-icon>
+          <v-icon>mdi-information-outline</v-icon>
         </v-btn>
 
-        <v-btn icon>
+        <v-btn to="/admin" icon>
           <v-icon>mdi-heart</v-icon>
         </v-btn>
 

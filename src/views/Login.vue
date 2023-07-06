@@ -54,7 +54,7 @@
 export default {
     data (){
         return{
-            userName : null,
+            userName : "",
             usernameValidFormat : false,
         }
     },
