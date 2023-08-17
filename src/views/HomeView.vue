@@ -1,9 +1,15 @@
 
 <script>
 import axios from "axios"
+import Alert from '@/components/Alert.vue'
 export default{
+  components:{
+    Alert
+  },
     data() {
     return {
+      activator: false,
+      msg : "",
       collapseOnScroll: true,
       title: "Vue-2 Appssssssss",
       cards: null
@@ -11,13 +17,15 @@ export default{
     };
   },
   mounted() {
-   this.getAndShowCards()
+     this.getAndShowCards()
   },
   
    methods: {
     getAndShowCards() {
       axios.get('https://fakestoreapi.com/products').then((response) => {
         console.log(response.data);
+        this.activator= true
+        this.msg= "داده ها با موفقیت بارگذاری شدند"
         this.cards = response.data;
       })
     }
@@ -27,6 +35,7 @@ export default{
 
 <template>
 <v-card
+
             class="mx-auto"
             
           >
@@ -63,4 +72,6 @@ export default{
               </v-row>
             </v-container>
           </v-card>
+          <Alert :activator="activator"  :msg="msg" colorP="success"  />
+          
 </template>
