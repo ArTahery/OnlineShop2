@@ -3,7 +3,6 @@
     <div class="text-center mb-4">
       <span style="color: orangered"> ورود به حساب کاربری </span>
     </div>
-    <v-form dir="rtl" @submit.prevent="">
       <v-text-field
         v-model="userName"
         :class="usernameValidation"
@@ -14,51 +13,45 @@
         dir="ltr"
       ></v-text-field>
       <v-text-field
+        v-model="psssword"
         class="mb-4"
         clearable
         label="رمز ورود"
         type="password"
         dir="ltr"
       ></v-text-field>
+      <!-- :disabled="userName && password ? true : false" -->
       <v-btn
-        disabled
-        block
         color="success"
         size="large"
-        type="submit"
-        variant="elevated"
+        @click="authentication"
       >
         ورود
       </v-btn>
-    </v-form>
-    <v-radio-group class="mt-4 text-center" color="success" >
-      <template v-slot:label>
-        <div> = انتخاب نحوه ورود به حساب کاربری </div>
-      </template>
-      <v-radio value="شماره تلفن همراه">
-        <template v-slot:label>
-          <div><strong class="text-primary">شماره تلفن همراه</strong></div>
-        </template>
-      </v-radio>
-      <v-radio value="نام کاربری">
-        <template v-slot:label>
-          <div><strong class="text-primary">نام کاربری</strong></div>
-        </template>
-      </v-radio>
-    </v-radio-group>
   </v-card>
 
 </template>
 
+
+
+
 <script>
+import { mapState, mapStores } from "pinia";
+import { loginStore } from "@/stores";
+// import { loginStore } from "@/stores/index";
+
 export default {
     data (){
         return{
             userName : "",
+            psssword : "",
             usernameValidFormat : false,
         }
     },
     computed:{
+      //computed is a online searcher
+        ...mapStores(loginStore),
+        // ...mapState(loginStore, ["token"]),
         usernameValidation(){
           if (this.userName.length >= 8) {
             return "valid"
@@ -67,6 +60,22 @@ export default {
         }
         }
     },
+    mounted() {
+     // this.authentication()
+    },
+    methods:{
+      authentication() {
+        console.log("Eetnene")
+        if(this.userName.length > 0 && this.psssword.length > 0) {
+                  console.log("Eetnene2")
+
+          //If the backend response is 200
+          const token = "tokenLogin-localStorage"
+          this.loginStore.login(token)
+          console.log("**********",this.loginStore.isAuthenticated);
+        }
+      }
+    }
 }
 </script>
 <style>
